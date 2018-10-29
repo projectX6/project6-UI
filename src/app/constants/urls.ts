@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 export class URL {
 
-    public readonly BASE_URL: string = 'http://localhost';
+    public static readonly BASE_URL: string = 'http://localhost';
     // create global variables
     
 }
