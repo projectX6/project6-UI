@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PasswordValidator } from 'src/app/shared/custom-validation';
+import { PasswordValidator, forbiddenNameValidator } from 'src/app/validations/password-validation';
 
 @Component({
   selector: 'app-registeration',
@@ -11,6 +11,7 @@ import { PasswordValidator } from 'src/app/shared/custom-validation';
 export class RegisterationComponent implements OnInit {
 
   signUpForm: FormGroup;
+  submitted = false;
 
   get firstName() {
     return this.signUpForm.get('firstName');
@@ -42,24 +43,22 @@ export class RegisterationComponent implements OnInit {
   ngOnInit() {
     this.signUpForm = this.fb.group({
       'firstName': ['', [Validators.required, Validators.minLength(3)]],
-      'lastName': ['', Validators.required],
-      'email': ['', Validators.required],
-      'mobileNumber': ['', Validators.required],
-      'password': ['', [Validators.required]],
+      'lastName': ['', [Validators.required]],
+      'email': ['', [Validators.required, forbiddenNameValidator(/^[a-zA-Z0-9.!#$%&amp;'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)]],
+      'mobileNumber': ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      'password': ['', [Validators.required, forbiddenNameValidator(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      )]],
       'confirmPassword': ['', Validators.required]
     }, { validator: PasswordValidator });
   }
 
-  show(value) {
-    console.log(value);
-  }
-
   signUp(formData) {
+    this.submitted = true;
     console.log('FormData', formData);
-    if (formData.firstName !== '' || formData !== undefined) {
-      this.router.navigate(['/otp']);
+    if (this.signUpForm.invalid) {
+      return;
     } else {
-
+      this.router.navigate(['/otp']);
     }
   }
 
