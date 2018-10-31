@@ -4,7 +4,7 @@
     <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
       <div class="form-group">
         <input type="text" class="form-control" name="firstname" placeholder="First Name" lettersOnly formControlName="firstName"
-          [class.is-invalid]="firstName.invalid && firstName.touched">
+          [class.is-invalid]="firstName.invalid && firstName.touched" maxlength="20">
         <div *ngIf="firstName.invalid && firstName.touched || submitted">
           <small *ngIf="firstName.errors?.required" class="text-danger">Firstname is required</small>
           <small *ngIf="firstName.errors?.minlength" class="text-danger">Firstname must be of atleast 3 characters</small>
@@ -13,7 +13,7 @@
 
       <div class="form-group">
         <input type="text" class="form-control" name="lastname" placeholder="Last Name" lettersOnly formControlName="lastName"
-          [class.is-invalid]="lastName.invalid && lastName.touched">
+          [class.is-invalid]="lastName.invalid && lastName.touched" maxlength="20">
         <div *ngIf="lastName.invalid && lastName.touched || submitted">
           <small *ngIf="lastName.errors?.required" class="text-danger">Lastname is required</small>
         </div>
