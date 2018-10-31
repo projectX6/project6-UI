@@ -1,3 +1,26 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <div class="center-form panel">
+    <h4 class="text-center"><i class="fa fa-sign-in mgr-5"  aria-hidden="true"></i> Login</h4>
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+      <div class="form-group">
+        <input type="text" class="form-control input-lg" name="email" placeholder="Email" formControlName="email" [class.is-invalid]="email.invalid && email.touched">
+        <div *ngIf="email.invalid && email.touched || submitted">
+          <small class="text-danger" *ngIf="email.errors?.required">Please enter email</small>
+          <small class="text-danger" *ngIf="email.errors?.forbiddenName">Please enter correct email</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="password" class="form-control input-lg" name="password" placeholder="Password" formControlName="password"  [class.is-invalid]="password.invalid && password.touched">
+        <div *ngIf="password.invalid && password.touched || submitted">
+          <small class="text-danger" *ngIf="password.errors?.required">Please enter password</small>
+        </div>
+      </div>
+
+      <button class="btn btn-block btn-primary">Login</button>
+      <p class="text-center">
+        <small>Don't have an account yet? <a routerLink="/signup">Sign Up</a></small>
+      </p>
+    </form>
+  </div>
+</div>

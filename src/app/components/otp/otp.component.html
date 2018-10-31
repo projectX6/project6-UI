@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="center-form">
+    <h4 class="text-center">Otp Verification</h4>
+    <form [formGroup]="otpForm" (ngSubmit)="submitOtp(otpForm.value)">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Enter Otp" name="enterotp" formControlName="otp" [class.is-invalid]="otp.invalid && otp.touched" minlength="6" maxlength="6" numbersOnly>
+        <div *ngIf="otp.invalid && otp.touched">
+          <small class="text-danger" *ngIf="otp.errors?.required">Please enter Otp</small>
+        </div>
+      </div>
+
+      <button class="btn btn-block btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

@@ -1,3 +1,65 @@
-<p>
-  registeration works!
-</p>
+<div class="container">
+  <div class="center-form">
+    <h4 class="text-center"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</h4>
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
+      <div class="form-group">
+        <input type="text" class="form-control" name="firstname" placeholder="First Name" lettersOnly formControlName="firstName"
+          [class.is-invalid]="firstName.invalid && firstName.touched" maxlength="20">
+        <div *ngIf="firstName.invalid && firstName.touched || submitted">
+          <small *ngIf="firstName.errors?.required" class="text-danger">Firstname is required</small>
+          <small *ngIf="firstName.errors?.minlength" class="text-danger">Firstname must be of atleast 3 characters</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" name="lastname" placeholder="Last Name" lettersOnly formControlName="lastName"
+          [class.is-invalid]="lastName.invalid && lastName.touched" maxlength="20">
+        <div *ngIf="lastName.invalid && lastName.touched || submitted">
+          <small *ngIf="lastName.errors?.required" class="text-danger">Lastname is required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" name="email" placeholder="Email" formControlName="email"
+          [class.is-invalid]="email.invalid && email.touched">
+        <div *ngIf="email.invalid && email.touched || submitted">
+          <small *ngIf="email.errors?.required" class="text-danger">Email is required</small>
+          <small *ngIf="email.errors?.forbiddenName" class="text-danger">Please enter the correct email address</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" name="mobilenumber" placeholder="Mobile Number" numbersOnly formControlName="mobileNumber"
+          [class.is-invalid]="mobileNumber.invalid && mobileNumber.touched">
+        <div *ngIf="mobileNumber.invalid && mobileNumber.touched || submitted">
+          <small *ngIf="mobileNumber.errors?.required" class="text-danger">Mobile number is required</small>
+          <small *ngIf="mobileNumber.errors?.minlength || mobileNumber.errors?.maxlength" class="text-danger">Mobile number must be of 10 digits</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="password" class="form-control" name="password" placeholder="Password" formControlName="password"
+          [class.is-invalid]="password.invalid && password.touched">
+        <div *ngIf="password.invalid && password.touched || submitted">
+          <small *ngIf="password.errors?.required" class="text-danger">Password is required</small>
+          <small *ngIf="password.errors?.forbiddenName" class="text-danger">Password must contain Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password"
+          formControlName="confirmPassword" [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched || signUpForm.errors?.mismatch">
+        <div *ngIf="confirmPassword.invalid && confirmPassword.touched || submitted">
+          <small *ngIf="confirmPassword.errors?.required" class="text-danger">Confirm password is required</small>
+        </div>
+        <small *ngIf="signUpForm.errors?.mismatch" class="text-danger">Passwords do not match</small>
+      </div>
+
+      <button class="btn btn-block btn-primary">Register</button>
+
+      <p class="text-center">
+        Already have an account! <a routerLink=""> Login</a>
+      </p>
+    </form>
+  </div>
+</div>
